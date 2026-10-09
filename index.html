@@ -3,12 +3,243 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mon premier site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio BTS SIO SISR - Mon Nom</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --accent: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        nav {
+            background-color: #0f172a;
+            display: flex;
+            justify-content: center;
+            padding: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: var(--card-bg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--accent);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .skills-grid,
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            border: 1px solid #e2e8f0;
+            padding: 1.2rem;
+            border-radius: 6px;
+            background-color: #fafafa;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-right: 0.3rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary);
+            color: white;
+            margin-top: 3rem;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Bienvenue sur mon site web !</h1>
-    <p>Site hébergé gratuitement avec GitHub Pages.</p>
+
+    <header>
+        <h1>Prénom NOM</h1>
+        <p>Étudiant en BTS SIO SISR (Solutions d'Infrastructure, Systèmes et Réseaux)</p>
+    </header>
+
+    <nav>
+        <a href="#about">À propos</a>
+        <a href="#skills">Compétences</a>
+        <a href="#projects">Projets</a>
+        <a href="#veille">Veille Technologique</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- À propos -->
+        <section id="about">
+            <h2>Présentation</h2>
+            <p>Bonjour ! Actuellement étudiant en BTS SIO option SISR, je me passionne pour l'administration système, la
+                gestion des réseaux d'entreprise et la cybersécurité. Mon objectif est de m'orienter vers les métiers
+                d'administrateur système et réseau / ingénieur cloud.</p>
+            <a href="#" class="btn">Télécharger mon CV (PDF)</a>
+            <a href="#" class="btn" style="background-color: #475569;">Tableau de synthèse E4</a>
+        </section>
+
+        <!-- Compétences -->
+        <section id="skills">
+            <h2>Compétences Techniques</h2>
+            <div class="skills-grid">
+                <div class="card">
+                    <h3>Systèmes & Services</h3>
+                    <p>Windows Server (AD DS, DNS, DHCP, GPO), Linux Debian/Ubuntu, Serveurs Web (Apache, Nginx).</p>
+                </div>
+                <div class="card">
+                    <h3>Réseaux & Sécurité</h3>
+                    <p>Cisco Packet Tracer, VLANs, Routage, Pare-feu pfSense, VPN (OpenVPN), Wireshark.</p>
+                </div>
+                <div class="card">
+                    <h3>Virtualisation & Supervision</h3>
+                    <p>VMware ESXi, Proxmox VE, VirtualBox, Zabbix, Nagios, Veeam Backup.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projets -->
+        <section id="projects">
+            <h2>Réalisations / Projets</h2>
+            <div class="projects-grid">
+                <div class="card">
+                    <h3>Déploiement d'une infrastructure Active Directory</h3>
+                    <p>Mise en place d'un domaine Active Directory sous Windows Server avec gestion des utilisateurs,
+                        des groupes et déploiement de GPO de sécurité.</p>
+                    <span class="tag">Windows Server</span>
+                    <span class="tag">Active Directory</span>
+                    <span class="tag">AP</span>
+                </div>
+                <div class="card">
+                    <h3>Mise en place d'un Pare-feu pfSense</h3>
+                    <p>Segmentation du réseau d'entreprise en VLANs et filtrage du trafic via un pare-feu pfSense avec
+                        règles de NAT et serveur VPN.</p>
+                    <span class="tag">pfSense</span>
+                    <span class="tag">VLAN</span>
+                    <span class="tag">Sécurité</span>
+                </div>
+                <div class="card">
+                    <h3>Migration d'un serveur de fichiers (Stage 1)</h3>
+                    <p>Audit, transfert des données et reconfigurations des permissions ACL lors du remplacement du
+                        serveur de fichiers d'une PME.</p>
+                    <span class="tag">Stage</span>
+                    <span class="tag">Stockage</span>
+                    <span class="tag">Permissions</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Veille Technologique -->
+        <section id="veille">
+            <h2>Veille Technologique</h2>
+            <p><strong>Thème :</strong> L'évolution de la sécurité des architectures Zero Trust face aux cyberattaques
+                modernes.</p>
+            <p>J'utilise des flux RSS (Feedly) et des alertes d'actualités spécialisées (CERT-FR, ZDNet, ANSSI) pour
+                suivre quotidiennement les vulnérabilités et innovations du secteur.</p>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>N'hésitez pas à me contacter via :</p>
+            <ul>
+                <li><strong>Email :</strong> mon.email@example.com</li>
+                <li><strong>LinkedIn :</strong> <a href="#" target="_blank">Mon profil LinkedIn</a></li>
+                <li><strong>GitHub :</strong> <a href="#" target="_blank">Mon GitHub</a></li>
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Portfolio BTS SIO SISR - Tous droits réservés</p>
+    </footer>
+
 </body>
 
 </html>
