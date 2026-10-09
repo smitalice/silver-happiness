@@ -105,6 +105,42 @@
             font-size: 1.4rem;
         }
 
+        /* TIMELINE / FORMATION */
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid #cbd5e1;
+            margin-top: 1rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.05rem;
+            top: 0.2rem;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 0.2rem;
+        }
+
         /* Grilles fluides pour compétences et projets */
         .skills-grid,
         .projects-grid {
@@ -236,9 +272,9 @@
 
     <nav>
         <a href="#about">À propos</a>
+        <a href="#education">Parcours</a>
         <a href="#skills">Compétences</a>
         <a href="#projects">Projets</a>
-        <a href="#videos">Vidéos</a>
         <a href="#veille">Veille</a>
         <a href="#contact">Contact</a>
     </nav>
@@ -252,6 +288,30 @@
                 la gestion des réseaux d'entreprise et la cybersécurité.</p>
             <div>
                 <a href="Alice_SMIT_CV.pdf" download="Alice_SMIT_CV.pdf" class="btn">Télécharger mon CV (PDF)</a>
+            </div>
+        </section>
+
+        <!-- FORMATION / PARCOURS -->
+        <section id="education">
+            <h2>Formations & Parcours</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024 - Présent</div>
+                    <h3>BTS SIO option SISR</h3>
+                    <p>Solutions d'Infrastructure, Systèmes et Réseaux</p>
+                    <span class="tag">En cours</span>
+                    <span class="tag">Administration Système</span>
+                    <span class="tag">Réseau</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2021 - 2024</div>
+                    <h3>Baccalauréat Général / STI2D</h3>
+                    <p>Spécialité Systèmes d'Information et Numérique (SIN)</p>
+                    <span class="tag">Obtenu</span>
+                </div>
             </div>
         </section>
 
