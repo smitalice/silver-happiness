@@ -3,225 +3,278 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- BALISE CRUCIALE POUR MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio BTS SIO SISR - Alice Smit</title>
     <link rel="icon" type="image/jpg" href="favicon.jpg">
-
-    <!-- Icônes FontAwesome pour le style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* --- RESET & VARIABLES --- */
+        /* --- RESET & STYLE RETRO MAC / BRUTALIST --- */
         * {
             box-sizing: border-box;
-            /* Indispensable pour éviter que le padding casse les largeurs */
             margin: 0;
             padding: 0;
         }
 
         :root {
-            --primary: #1e293b;
-            --accent: #2563eb;
-            --bg: #f8fafc;
+            --bg-color: #e0e0e0;
             --card-bg: #ffffff;
-            --text: #334155;
+            --text-color: #000000;
+            --border-color: #000000;
+            --shadow-color: #000000;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            /* Empêche le défilement horizontal parasite */
+            font-family: 'Courier New', Courier, monospace, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        /* En-tête */
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 2.5rem 1rem;
+        /* --- BARRE DE NAVIGATION (Haut) --- */
+        nav {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            box-shadow: 4px 4px 0px var(--shadow-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-logo {
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* --- SECTION HERO (Présentation) --- */
+        .hero {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            box-shadow: 6px 6px 0px var(--shadow-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-illustration {
             text-align: center;
+            border: 2px solid #000;
+            padding: 1rem;
+            background: #f0f0f0;
+            box-shadow: 3px 3px 0px #000;
         }
 
-        header h1 {
-            font-size: 2rem;
+        .hero-illustration pre {
+            font-size: 0.75rem;
+            line-height: 1.1;
+            font-weight: bold;
+        }
+
+        /* --- LIENS RAPIDES (QUICK LINKS) --- */
+        .quick-links {
+            margin-bottom: 3rem;
+        }
+
+        .quick-links-title {
+            font-weight: bold;
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
         }
 
-        header p {
-            color: #94a3b8;
-            font-size: 1rem;
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            border: 2px solid var(--border-color);
+            box-shadow: 4px 4px 0px var(--shadow-color);
+            background: #fff;
         }
 
-        /* Navigation Responsive */
-        nav {
-            background-color: #0f172a;
+        .quick-btn {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            /* Permet aux liens d'aller à la ligne sur petit écran */
-            padding: 0.8rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav a {
-            color: white;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: #000;
             text-decoration: none;
-            padding: 0.5rem 0.8rem;
-            font-weight: 500;
-            font-size: 0.95rem;
-            display: inline-block;
+            font-weight: bold;
+            border-right: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+            background: #fff;
+            transition: background 0.1s;
         }
 
-        nav a:hover {
-            color: #60a5fa;
+        .quick-btn:hover {
+            background: #e0e0e0;
         }
 
-        /* Conteneur Principal */
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
-        }
-
-        section {
+        /* --- STYLE DES FENÊTRES RETRO MAC --- */
+        .window {
             background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            box-shadow: 5px 5px 0px var(--shadow-color);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .window-header {
+            background: #e0e0e0;
+            border-bottom: 2px solid var(--border-color);
+            padding: 0.4rem 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .window-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1.5px solid #000;
+            background: #fff;
+        }
+
+        .window-title {
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: lowercase;
+        }
+
+        .window-body {
             padding: 1.5rem;
+        }
+
+        /* --- SECTIONS DE CONTENU --- */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 900;
             margin-bottom: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        h2 {
-            color: var(--accent);
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        /* Grilles fluides pour compétences et projets */
-        .skills-grid,
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
         }
 
-        .card {
-            border: 1px solid #e2e8f0;
-            padding: 1.2rem;
-            border-radius: 6px;
-            background-color: #fafafa;
-        }
-
-        .card h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        /* Tags / Badges */
-        .tag {
-            display: inline-block;
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-right: 0.3rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Boutons */
+        /* --- BOUTONS STYLISÉS --- */
         .btn {
             display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 0.6rem 1rem;
-            text-decoration: none;
-            border-radius: 4px;
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+            padding: 0.6rem 1.2rem;
             font-weight: bold;
-            margin-top: 0.8rem;
-            margin-right: 0.5rem;
-            font-size: 0.9rem;
-            text-align: center;
+            text-decoration: none;
+            box-shadow: 3px 3px 0px #000;
+            margin-top: 1rem;
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .btn:hover {
-            opacity: 0.9;
+            background: #000;
+            color: #fff;
         }
 
-        /* Médias fluides (Images et Vidéos) */
-        img,
+        .btn:active {
+            box-shadow: 0px 0px 0px #000;
+            transform: translate(3px, 3px);
+        }
+
+        /* --- TAGS GEEK --- */
+        .tag {
+            display: inline-block;
+            border: 1px solid #000;
+            background: #f0f0f0;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 0.3rem;
+            margin-top: 0.8rem;
+        }
+
+        /* --- VIDÉO ET IMAGES --- */
         video,
-        iframe {
+        img {
             max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-        }
-
-        /* Conteneur vidéo iFrame responsive */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            /* Ratio 16:9 */
-            height: 0;
-            overflow: hidden;
+            border: 2px solid #000;
             margin-top: 1rem;
-            border-radius: 6px;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
+        /* --- FOOTER --- */
         footer {
+            border-top: 2px solid #000;
+            padding-top: 1.5rem;
             text-align: center;
-            padding: 1.5rem;
-            background-color: var(--primary);
-            color: white;
-            margin-top: 2rem;
-            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 3rem;
         }
 
-        /* --- MEDIA QUERIES MOBILE (Écrans < 600px) --- */
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.5rem;
+        /* --- ADAPTATION MOBILE (< 768px) --- */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
             }
 
-            nav {
-                flex-direction: column;
-                align-items: center;
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
 
-            nav a {
-                width: 100%;
-                text-align: center;
-                padding: 0.6rem;
-                border-bottom: 1px solid #1e293b;
+            .hero-text h1 {
+                font-size: 2.2rem;
             }
 
-            .btn {
-                display: block;
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 0.5rem;
-            }
-
-            section {
-                padding: 1rem;
+            .quick-btn {
+                border-right: none;
             }
         }
     </style>
@@ -229,111 +282,195 @@
 
 <body>
 
-    <header>
-        <h1>Alice Smit</h1>
-        <p>Étudiante en BTS SIO SISR (Solutions d'Infrastructure, Systèmes et Réseaux)</p>
-    </header>
-
+    <!-- BARRE DE NAVIGATION RETRO -->
     <nav>
-        <a href="#about">À propos</a>
-        <a href="#skills">Compétences</a>
-        <a href="#projects">Projets</a>
-        <a href="#videos">Vidéos</a>
-        <a href="#veille">Veille</a>
-        <a href="#contact">Contact</a>
+        <div class="nav-logo">
+            <span>💻</span> Alice_Smit_OS
+        </div>
+        <div class="nav-links">
+            <a href="#about">À propos</a>
+            <a href="#projects">Projets</a>
+            <a href="#skills">Compétences</a>
+            <a href="#veille">Veille</a>
+            <a href="#contact">Contact</a>
+        </div>
     </nav>
 
-    <div class="container">
+    <!-- HERO SECTION -->
+    <div class="hero" id="about">
+        <div class="hero-text">
+            <h1>Hello.<br>I'm Alice.</h1>
+            <p>Étudiante en <strong>BTS SIO option SISR</strong>. Passionnée par l'administration système, la gestion
+                des réseaux d'entreprise et la cybersécurité.</p>
+            <a href="Alice_SMIT_CV.pdf" download="Alice_SMIT_CV.pdf" class="btn">Télécharger mon CV (.pdf)</a>
+        </div>
+        <div class="hero-illustration">
+            <pre>
+  .----------------.
+  | .------------. |
+  | |  SISR OS   | |
+  | |  [OK]      | |
+  | '------------' |
+  '----------------'
+     /          \
+    /____________\
+            </pre>
+            <p style="font-size:0.8rem; font-weight:bold; margin-top:0.5rem;">System Ready.</p>
+        </div>
+    </div>
 
-        <!-- À PROPOS -->
-        <section id="about">
-            <h2>Présentation</h2>
-            <p>Bonjour ! Actuellement étudiante en BTS SIO option SISR, je me passionne pour l'administration système,
-                la gestion des réseaux d'entreprise et la cybersécurité.</p>
-            <div>
-                <a href="Alice_SMIT_CV.pdf" download="Alice_SMIT_CV.pdf" class="btn">Télécharger mon CV (PDF)</a>
+    <!-- ACCÈS RAPIDE (QUICK LINKS) -->
+    <div class="quick-links">
+        <div class="quick-links-title">Quick links</div>
+        <div class="quick-links-grid">
+            <a href="#projects" class="quick-btn">Projets <span>↗</span></a>
+            <a href="#skills" class="quick-btn">Compétences <span>↗</span></a>
+            <a href="#veille" class="quick-btn">Veille <span>↗</span></a>
+            <a href="#contact" class="quick-btn">Contact <span>↗</span></a>
+        </div>
+    </div>
+
+    <!-- SECTION PROJETS -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+
+            <!-- Projet 1 -->
+            <div class="window">
+                <div class="window-header">
+                    <div class="window-controls">
+                        <div class="window-circle"></div>
+                        <div class="window-circle"></div>
+                    </div>
+                    <div class="window-title">2026-03-01-active-directory.sh</div>
+                </div>
+                <div class="window-body">
+                    <h3>Infrastructure Active Directory</h3>
+                    <p style="margin-top:0.5rem;">Mise en place d'un domaine Active Directory sous Windows Server avec
+                        gestion des utilisateurs, des groupes et déploiement de GPO de sécurité.</p>
+                    <span class="tag">#WindowsServer</span>
+                    <span class="tag">#ActiveDirectory</span>
+                </div>
             </div>
-        </section>
 
-        <!-- COMPÉTENCES -->
-        <section id="skills">
-            <h2>Compétences Techniques</h2>
-            <div class="skills-grid">
-                <div class="card">
-                    <h3>Systèmes & Services</h3>
-                    <p>Windows Server (AD DS, DNS, DHCP, GPO), Linux Debian/Ubuntu, Serveurs Web.</p>
+            <!-- Projet 2 -->
+            <div class="window">
+                <div class="window-header">
+                    <div class="window-controls">
+                        <div class="window-circle"></div>
+                        <div class="window-circle"></div>
+                    </div>
+                    <div class="window-title">2026-02-15-cablage-salle001.pdf</div>
                 </div>
-                <div class="card">
-                    <h3>Réseaux & Sécurité</h3>
-                    <p>Cisco Packet Tracer, VLANs, Routage, Wireshark.</p>
-                </div>
-                <div class="card">
-                    <h3>Virtualisation & Supervision</h3>
-                    <p>VMware ESXi, VirtualBox, Zabbix, Veeam Backup.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projets -->
-        <section id="projects">
-            <h2>Réalisations / Projets</h2>
-            <div class="projects-grid">
-                <div class="card">
-                    <h3>Déploiement d'une infrastructure Active Directory</h3>
-                    <p>Mise en place d'un domaine Active Directory sous Windows Server avec gestion des utilisateurs,
-                        des groupes et déploiement de GPO de sécurité.</p>
-                    <span class="tag">Windows Server</span>
-                    <span class="tag">Active Directory</span>
-                </div>
-                <div class="card">
+                <div class="window-body">
                     <h3>Câblage de la salle 001</h3>
-                    <p>Organisation, devis des travaux d'une salle d'informatique.</p>
+                    <p style="margin-top:0.5rem;">Organisation et devis des travaux d'infrastructure réseau pour une
+                        salle informatique complète.</p>
                     <a href="Câblage_projet.pdf" download="Câblage_projet.pdf" class="btn">Télécharger le projet
                         (PDF)</a>
-                    <span class="tag">AP</span>
-                    <span class="tag">Travail d'équipe</span>
-                    <span class="tag">Câblage</span>
+                    <br>
+                    <span class="tag">#AP</span>
+                    <span class="tag">#Réseau</span>
+                    <span class="tag">#Câblage</span>
                 </div>
-                <div class="card">
-                    <h3>Installation de Wisemapping via Docker Compose</h3>
-                    <p>Tutoriel vidéo montrant la configuration de l'installation de Wisemapping.</p>
+            </div>
 
-                    <video controls width="100%" style="border-radius: 6px; margin-top: 1rem; background-color: #000;">
+            <!-- Projet 3 (Vidéo) -->
+            <div class="window" style="grid-column: 1 / -1;">
+                <div class="window-header">
+                    <div class="window-controls">
+                        <div class="window-circle"></div>
+                        <div class="window-circle"></div>
+                    </div>
+                    <div class="window-title">2026-01-10-docker-wisemapping.mp4</div>
+                </div>
+                <div class="window-body">
+                    <h3>Installation de Wisemapping via Docker Compose</h3>
+                    <p>Tutoriel vidéo montrant la configuration et le déploiement du service via Docker Compose.</p>
+
+                    <video controls width="100%">
                         <source src="Alice_Docker_Compose.mp4" type="video/mp4">
                         Votre navigateur ne prend pas en charge la lecture vidéo.
                     </video>
 
-                    <span class="tag">Docker</span>
-                    <span class="tag">Wisemapping</span>
-                    <span class="tag">Tutoriel</span>
+                    <span class="tag">#Docker</span>
+                    <span class="tag">#Wisemapping</span>
+                    <span class="tag">#Tutoriel</span>
                 </div>
             </div>
-        </section>
 
-        <!-- Veille Technologique -->
-        <section id="veille">
-            <h2>Veille Technologique</h2>
-            <p><strong>Thème :</strong> L'évolution de la sécurité des architectures Zero Trust face aux cyberattaques
-                modernes.</p>
-            <p>J'utilise des flux RSS (Feedly) et des alertes d'actualités spécialisées (CERT-FR, ZDNet, ANSSI) pour
-                suivre quotidiennement les vulnérabilités et innovations du secteur.</p>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact -->
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>N'hésitez pas à me contacter via :</p>
-            <ul>
-                <li><strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/alice-smit-a2b170332/"
-                        target="_blank" rel="noopener noreferrer">Alice Smit sur LinkedIn</a></li>
-                <li><strong>GitHub :</strong> <a href="https://github.com/smitalice" target="_blank"
-                        rel="noopener noreferrer">Mon GitHub</a></li>
-            </ul>
-        </section>
+    <!-- SECTION COMPÉTENCES -->
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="window">
+            <div class="window-header">
+                <div class="window-controls">
+                    <div class="window-circle"></div>
+                    <div class="window-circle"></div>
+                </div>
+                <div class="window-title">system_config.sys</div>
+            </div>
+            <div class="window-body">
+                <p><strong>Systèmes & Services :</strong> Windows Server (AD DS, DNS, DHCP, GPO), Linux Debian/Ubuntu,
+                    Serveurs Web (Apache, Nginx).</p>
+                <hr style="margin: 1rem 0; border: 1px dashed #000;">
+                <p><strong>Réseaux & Sécurité :</strong> Cisco Packet Tracer, VLANs, Routage, Wireshark.</p>
+                <hr style="margin: 1rem 0; border: 1px dashed #000;">
+                <p><strong>Virtualisation & Supervision :</strong> VMware ESXi, VirtualBox, Zabbix, Nagios, Veeam
+                    Backup.</p>
+            </div>
+        </div>
+    </section>
 
-    </div>
+    <!-- SECTION VEILLE TECHNOLOGIQUE -->
+    <section id="veille">
+        <h2>Veille Technologique</h2>
+        <div class="window">
+            <div class="window-header">
+                <div class="window-controls">
+                    <div class="window-circle"></div>
+                    <div class="window-circle"></div>
+                </div>
+                <div class="window-title">rss_feed_zero_trust.log</div>
+            </div>
+            <div class="window-body">
+                <p><strong>Thème :</strong> L'évolution de la sécurité des architectures Zero Trust face aux
+                    cyberattaques modernes.</p>
+                <p style="margin-top:0.8rem;">J'utilise des flux RSS (Feedly) et des alertes d'actualités spécialisées
+                    (CERT-FR, ZDNet, ANSSI) pour suivre quotidiennement les vulnérabilités et innovations du secteur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION CONTACT -->
+    <section id="contact">
+        <h2>Find me</h2>
+        <div class="window">
+            <div class="window-header">
+                <div class="window-controls">
+                    <div class="window-circle"></div>
+                    <div class="window-circle"></div>
+                </div>
+                <div class="window-title">contact_me.txt</div>
+            </div>
+            <div class="window-body">
+                <p>Retrouvez-moi sur mes réseaux professionnels :</p>
+                <div style="margin-top: 1rem;">
+                    <a href="https://www.linkedin.com/in/alice-smit-a2b170332/" target="_blank"
+                        rel="noopener noreferrer" class="btn">LinkedIn ↗</a>
+                    <a href="https://github.com/smitalice" target="_blank" rel="noopener noreferrer" class="btn">GitHub
+                        ↗</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2026 - Portfolio BTS SIO SISR - Alice Smit</p>
+        <p>© 2026 - Portfolio Alice Smit - BTS SIO SISR</p>
     </footer>
 
 </body>
