@@ -3,10 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- BALISE CRUCIALE POUR MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio BTS SIO SISR - Alice Smit</title>
-    <link rel="icon" type="image/jpg" href="favicon.jpg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Icônes FontAwesome pour le style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* --- RESET & VARIABLES --- */
+        * {
+            box-sizing: border-box;
+            /* Indispensable pour éviter que le padding casse les largeurs */
+            margin: 0;
+            padding: 0;
+        }
+
         :root {
             --primary: #1e293b;
             --accent: #2563eb;
@@ -17,34 +30,38 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
+            /* Empêche le défilement horizontal parasite */
         }
 
+        /* En-tête */
         header {
             background-color: var(--primary);
             color: white;
-            padding: 3rem 1rem;
+            padding: 2.5rem 1rem;
             text-align: center;
         }
 
         header h1 {
-            margin: 0;
-            font-size: 2.2rem;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         header p {
             color: #94a3b8;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
+        /* Navigation Responsive */
         nav {
             background-color: #0f172a;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
+            /* Permet aux liens d'aller à la ligne sur petit écran */
             padding: 0.8rem;
             position: sticky;
             top: 0;
@@ -54,24 +71,28 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 1rem;
+            padding: 0.5rem 0.8rem;
             font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-block;
         }
 
         nav a:hover {
-            color: var(--accent);
+            color: #60a5fa;
         }
 
+        /* Conteneur Principal */
         .container {
+            width: 100%;
             max-width: 1000px;
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             padding: 0 1rem;
         }
 
         section {
             background: var(--card-bg);
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
@@ -80,14 +101,16 @@
             color: var(--accent);
             border-bottom: 2px solid #e2e8f0;
             padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
         }
 
+        /* Grilles fluides pour compétences et projets */
         .skills-grid,
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
         }
 
         .card {
@@ -98,42 +121,108 @@
         }
 
         .card h3 {
-            margin-top: 0;
+            margin-bottom: 0.5rem;
             color: var(--primary);
+            font-size: 1.1rem;
         }
 
+        /* Tags / Badges */
         .tag {
             display: inline-block;
             background: #dbeafe;
             color: #1e40af;
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             margin-right: 0.3rem;
             margin-top: 0.5rem;
         }
 
+        /* Boutons */
         .btn {
             display: inline-block;
             background-color: var(--accent);
             color: white;
-            padding: 0.6rem 1.2rem;
+            padding: 0.6rem 1rem;
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
         }
 
         .btn:hover {
-            background-color: #1d4ed8;
+            opacity: 0.9;
+        }
+
+        /* Médias fluides (Images et Vidéos) */
+        img,
+        video,
+        iframe {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        /* Conteneur vidéo iFrame responsive */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* Ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            margin-top: 1rem;
+            border-radius: 6px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
             background-color: var(--primary);
             color: white;
-            margin-top: 3rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- MEDIA QUERIES MOBILE (Écrans < 600px) --- */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 0.6rem;
+                border-bottom: 1px solid #1e293b;
+            }
+
+            .btn {
+                display: block;
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            section {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -141,7 +230,7 @@
 <body>
 
     <header>
-        <h1>Alice SMIT</h1>
+        <h1>Alice Smit</h1>
         <p>Étudiante en BTS SIO SISR (Solutions d'Infrastructure, Systèmes et Réseaux)</p>
     </header>
 
@@ -149,101 +238,100 @@
         <a href="#about">À propos</a>
         <a href="#skills">Compétences</a>
         <a href="#projects">Projets</a>
-        <a href="#veille">Veille Technologique</a>
+        <a href="#videos">Vidéos</a>
+        <a href="#veille">Veille</a>
         <a href="#contact">Contact</a>
     </nav>
 
     <div class="container">
 
-        <!-- À propos -->
+        <!-- À PROPOS -->
         <section id="about">
             <h2>Présentation</h2>
             <p>Bonjour ! Actuellement étudiante en BTS SIO option SISR, je me passionne pour l'administration système,
-                la gestion des réseaux d'entreprise et la cybersécurité. Mon objectif est de m'orienter vers les métiers
-                d'administrateur système et réseau.</p>
-            <a href="Alice_SMIT_CV.pdf" download="Alice_SMIT_CV.pdf" class="btn">Télécharger mon CV (PDF)</a>
+                la gestion des réseaux d'entreprise et la cybersécurité.</p>
+            <div>
+                <a href="CV_Alice_Smit.pdf" download class="btn">
+                    <i class="fas fa-download"></i> Télécharger mon CV
+                </a>
+                <a href="Tableau_E4.pdf" download class="btn" style="background-color: #475569;">
+                    <i class="fas fa-file-alt"></i> Tableau E4
+                </a>
+            </div>
         </section>
 
-        <!-- Compétences -->
+        <!-- COMPÉTENCES -->
         <section id="skills">
             <h2>Compétences Techniques</h2>
             <div class="skills-grid">
                 <div class="card">
                     <h3>Systèmes & Services</h3>
-                    <p>Windows Server (AD DS, DNS, DHCP, GPO), Linux Debian/Ubuntu, Serveurs Web (Apache, Nginx).</p>
+                    <p>Windows Server (AD DS, DNS, DHCP, GPO), Linux Debian/Ubuntu, Serveurs Web.</p>
                 </div>
                 <div class="card">
                     <h3>Réseaux & Sécurité</h3>
-                    <p>Cisco Packet Tracer, VLANs, Routage, Wireshark.</p>
+                    <p>Cisco Packet Tracer, VLANs, Routage, Pare-feu pfSense, OpenVPN, Wireshark.</p>
                 </div>
                 <div class="card">
                     <h3>Virtualisation & Supervision</h3>
-                    <p>VMware ESXi, VirtualBox, Zabbix, Nagios, Veeam Backup.</p>
+                    <p>VMware ESXi, Proxmox VE, VirtualBox, Zabbix, Veeam Backup.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Projets -->
+        <!-- PROJETS -->
         <section id="projects">
             <h2>Réalisations / Projets</h2>
             <div class="projects-grid">
                 <div class="card">
-                    <h3>Déploiement d'une infrastructure Active Directory</h3>
-                    <p>Mise en place d'un domaine Active Directory sous Windows Server avec gestion des utilisateurs,
-                        des groupes et déploiement de GPO de sécurité.</p>
+                    <h3>Déploiement Active Directory</h3>
+                    <p>Mise en place d'un domaine Active Directory sous Windows Server avec GPO de sécurité.</p>
                     <span class="tag">Windows Server</span>
                     <span class="tag">Active Directory</span>
                 </div>
                 <div class="card">
-                    <h3>Câblage de la salle 001</h3>
-                    <p>Organisation, devis des travaux d'une salle d'informatique.</p>
-                    <a href="Câblage_projet.pdf" download="Câblage_projet.pdf" class="btn">Télécharger le projet
-                        (PDF)</a>
-                    <span class="tag">AP</span>
-                    <span class="tag">Travail d'équipe</span>
-                    <span class="tag">Câblage</span>
-                </div>
-                <div class="card">
-                    <h3>Installation de Wisemapping via Docker Compose</h3>
-                    <p>Tutoriel vidéo montrant la configuration de l'installation de Wisemapping.</p>
-
-                    <video controls width="100%" style="border-radius: 6px; margin-top: 1rem; background-color: #000;">
-                        <source src="Alice_Docker_Compose.mp4" type="video/mp4">
-                        Votre navigateur ne prend pas en charge la lecture vidéo.
-                    </video>
-
-                    <span class="tag">Docker</span>
-                    <span class="tag">Wisemapping</span>
-                    <span class="tag">Tutoriel</span>
+                    <h3>Pare-feu pfSense</h3>
+                    <p>Segmentation du réseau en VLANs et filtrage du trafic via un pare-feu pfSense.</p>
+                    <span class="tag">pfSense</span>
+                    <span class="tag">VLAN</span>
                 </div>
             </div>
         </section>
 
-        <!-- Veille Technologique -->
-        <section id="veille">
-            <h2>Veille Technologique</h2>
-            <p><strong>Thème :</strong> L'évolution de la sécurité des architectures Zero Trust face aux cyberattaques
-                modernes.</p>
-            <p>J'utilise des flux RSS (Feedly) et des alertes d'actualités spécialisées (CERT-FR, ZDNet, ANSSI) pour
-                suivre quotidiennement les vulnérabilités et innovations du secteur.</p>
+        <!-- VIDÉOS -->
+        <section id="videos">
+            <h2>Démonstrations Vidéo</h2>
+            <div class="projects-grid">
+                <div class="card">
+                    <h3>Démonstration Active Directory</h3>
+                    <p>Vidéo explicative du déploiement d'infrastructure.</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Contact -->
+        <!-- VEILLE -->
+        <section id="veille">
+            <h2>Veille Technologique</h2>
+            <p><strong>Thème :</strong> La sécurité des architectures Zero Trust face aux cyberattaques modernes.</p>
+        </section>
+
+        <!-- CONTACT -->
         <section id="contact">
             <h2>Contact</h2>
-            <p>N'hésitez pas à me contacter via :</p>
-            <ul>
-                <li><strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/alice-smit-a2b170332/"
-                        target="_blank" rel="noopener noreferrer">Alice Smit sur LinkedIn</a></li>
-                <li><strong>GitHub :</strong> <a href="https://github.com/smitalice" target="_blank"
-                        rel="noopener noreferrer">Mon GitHub</a></li>
-            </ul>
+            <p style="margin-bottom: 1rem;">N'hésitez pas à me contacter :</p>
+            <a href="https://www.linkedin.com/in/alice-smit-a2b170332/" target="_blank" rel="noopener noreferrer"
+                class="btn" style="background-color: #0a66c2;">
+                <i class="fab fa-linkedin"></i> Profil LinkedIn
+            </a>
         </section>
 
     </div>
 
     <footer>
-        <p>&copy; 2026 - Portfolio BTS SIO SISR - Tous droits réservés</p>
+        <p>&copy; 2026 - Portfolio BTS SIO SISR - Alice Smit</p>
     </footer>
 
 </body>
