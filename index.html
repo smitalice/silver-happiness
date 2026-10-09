@@ -7,7 +7,6 @@
     <title>Portfolio BTS SIO SISR - Alice Smit</title>
     <link rel="icon" type="image/jpg" href="favicon.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Librairie ultra-léger pour les confettis -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -78,7 +77,6 @@
             z-index: 0;
         }
 
-        /* BANNIÈRE ANIMÉE GRADIENT */
         @keyframes gradientMove {
             0% {
                 background-position: 0% 50%;
@@ -102,6 +100,11 @@
             z-index: 1;
         }
 
+        .glitch-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
         .title-gradient {
             font-size: 2.8rem;
             font-weight: 900;
@@ -111,9 +114,77 @@
             animation: gradientMove 6s ease infinite;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            position: relative;
+            cursor: pointer;
         }
 
-        /* STATUT BADGE CYBERPUNK */
+        .title-gradient::before,
+        .title-gradient::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .title-gradient:hover::before {
+            opacity: 0.8;
+            left: 2px;
+            text-shadow: -2px 0 #ec4899;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 0.3s infinite linear alternate-reverse;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .title-gradient:hover::after {
+            opacity: 0.8;
+            left: -2px;
+            text-shadow: -2px 0 #10b981;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(10px, 9999px, 40px, 0);
+                transform: skew(0.3deg);
+            }
+
+            50% {
+                clip: rect(50px, 9999px, 80px, 0);
+                transform: skew(0.8deg);
+            }
+
+            100% {
+                clip: rect(20px, 9999px, 60px, 0);
+                transform: skew(0.1deg);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(70px, 9999px, 90px, 0);
+                transform: skew(0.5deg);
+            }
+
+            50% {
+                clip: rect(10px, 9999px, 30px, 0);
+                transform: skew(0.2deg);
+            }
+
+            100% {
+                clip: rect(40px, 9999px, 70px, 0);
+                transform: skew(0.9deg);
+            }
+        }
+
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -374,7 +445,6 @@
             color: var(--warm-yellow);
         }
 
-        /* BOUTON CONFETTI PARTY 🎉 */
         #party-btn {
             position: fixed;
             bottom: 85px;
@@ -479,7 +549,6 @@
     <canvas id="particles-canvas"></canvas>
     <div id="cursor-glow"></div>
 
-    <!-- BOUTONS FLOTTANTS -->
     <button id="party-btn" title="Lancer la fête !">🎉</button>
     <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
 
@@ -487,7 +556,9 @@
         <div class="status-badge">
             <span class="status-dot"></span> SYSTEM_STATUS: ONLINE
         </div>
-        <h1 class="title-gradient">Alice Smit</h1>
+        <div class="glitch-wrapper">
+            <h1 class="title-gradient" data-text="Alice Smit">Alice Smit</h1>
+        </div>
         <p>Étudiante en BTS SIO SISR | Alternante au Groupe Sigma</p>
     </header>
 
@@ -708,25 +779,30 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
 
-        // 6. Moteur de Particules interactives
+        // 6. MOTEUR DE CONSTELLATIONS INTERACTIVES EN CANVAS
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
+        let mousePos = {x: null, y: null};
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
         window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mousePos.x = e.clientX;
+            mousePos.y = e.clientY;
+        });
         resizeCanvas();
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
             }
             update() {
                 this.x += this.speedX;
@@ -735,24 +811,63 @@
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
             }
             draw() {
-                ctx.fillStyle = 'rgba(168, 85, 247, 0.25)';
+                ctx.fillStyle = 'rgba(168, 85, 247, 0.5)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        for (let i = 0; i < 50; i++) particles.push(new Particle());
+        // Génération de 70 étoiles/noeuds
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
 
-        function animateParticles() {
+        function connectConstellations() {
+            const maxDistance = 120;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        let opacity = 1 - (distance / maxDistance);
+                        ctx.strokeStyle = `rgba(168, 85, 247, ${opacity * 0.25})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+
+                // Connexion interactive avec le curseur de la souris
+                if (mousePos.x && mousePos.y) {
+                    let dx = particles[a].x - mousePos.x;
+                    let dy = particles[a].y - mousePos.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        let opacity = 1 - (distance / 150);
+                        ctx.strokeStyle = `rgba(16, 185, 129, ${opacity * 0.4})`;
+                        ctx.lineWidth = 1.2;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(mousePos.x, mousePos.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateConstellations() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
-            requestAnimationFrame(animateParticles);
+            connectConstellations();
+            requestAnimationFrame(animateConstellations);
         }
-        animateParticles();
+        animateConstellations();
     </script>
 
 </body>
