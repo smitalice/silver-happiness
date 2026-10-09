@@ -7,11 +7,12 @@
     <title>Portfolio BTS SIO SISR - Alice Smit</title>
     <link rel="icon" type="image/jpg" href="favicon.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Librairie ultra-léger pour les confettis -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-        /* --- VARIABLES DU THÈME SOMBRE (PAR DÉFAUT) --- */
         :root {
-            --bg-dark: #0b0f19;
+            --bg-dark: #070a12;
             --card-bg: rgba(22, 30, 46, 0.7);
             --primary-purple: #a855f7;
             --accent-green: #10b981;
@@ -19,11 +20,10 @@
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: rgba(255, 255, 255, 0.1);
-            --nav-bg: rgba(11, 15, 25, 0.8);
-            --card-hover-bg: rgba(15, 23, 42, 0.6);
+            --nav-bg: rgba(7, 10, 18, 0.8);
+            --card-hover-bg: rgba(15, 23, 42, 0.7);
         }
 
-        /* --- VARIABLES DU THÈME CLAIR --- */
         [data-theme="light"] {
             --bg-dark: #f1f5f9;
             --card-bg: rgba(255, 255, 255, 0.85);
@@ -57,7 +57,6 @@
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* --- CANVAS DE PARTICULES --- */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -68,19 +67,32 @@
             z-index: 0;
         }
 
-        /* --- HALO DU CURSEUR --- */
         #cursor-glow {
             position: fixed;
             width: 450px;
             height: 450px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(16, 185, 129, 0.06) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(16, 185, 129, 0.08) 40%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 0;
         }
 
-        /* --- HEADER --- */
+        /* BANNIÈRE ANIMÉE GRADIENT */
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         header {
             background: linear-gradient(180deg, var(--nav-bg) 0%, transparent 100%);
             color: var(--text-light);
@@ -90,21 +102,55 @@
             z-index: 1;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
+        .title-gradient {
+            font-size: 2.8rem;
+            font-weight: 900;
             margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, var(--text-light), var(--primary-purple), var(--accent-green));
+            background: linear-gradient(-45deg, #a855f7, #10b981, #fbbf24, #ec4899);
+            background-size: 300% 300%;
+            animation: gradientMove 6s ease infinite;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+        /* STATUT BADGE CYBERPUNK */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: monospace;
+            margin-bottom: 1rem;
         }
 
-        /* --- NAVIGATION --- */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.3;
+            }
+        }
+
         nav {
             background-color: var(--nav-bg);
             backdrop-filter: blur(12px);
@@ -117,7 +163,6 @@
             top: 0;
             z-index: 100;
             border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.4s ease;
         }
 
         nav a {
@@ -133,9 +178,9 @@
         nav a:hover {
             color: var(--warm-yellow);
             background: rgba(125, 125, 125, 0.1);
+            transform: scale(1.05);
         }
 
-        /* --- BOUTON INTERRUPTEUR DE THÈME --- */
         #theme-toggle {
             background: transparent;
             border: 1px solid var(--border-color);
@@ -156,7 +201,6 @@
             color: var(--primary-purple);
         }
 
-        /* --- CONTAINER & SECTIONS --- */
         .container {
             width: 100%;
             max-width: 1000px;
@@ -174,12 +218,12 @@
             border-radius: 16px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
         }
 
         section:hover {
-            border-color: rgba(168, 85, 247, 0.3);
-            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.15);
         }
 
         h2 {
@@ -193,7 +237,6 @@
             gap: 0.6rem;
         }
 
-        /* --- TIMELINE --- */
         .timeline {
             position: relative;
             padding-left: 1.8rem;
@@ -208,7 +251,7 @@
         }
 
         .timeline-item:hover {
-            transform: translateX(6px);
+            transform: translateX(8px);
         }
 
         .timeline-dot {
@@ -225,7 +268,7 @@
         }
 
         .timeline-item:hover .timeline-dot {
-            transform: scale(1.5);
+            transform: scale(1.6);
         }
 
         .timeline-date {
@@ -235,7 +278,6 @@
             margin-bottom: 0.2rem;
         }
 
-        /* --- GRILLES & CARTES INTERACTIVES 3D --- */
         .skills-grid,
         .projects-grid {
             display: grid;
@@ -256,7 +298,7 @@
 
         .card:hover {
             border-color: var(--accent-green);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
         }
 
         .card::before {
@@ -266,7 +308,7 @@
             left: var(--mouse-x, 50%);
             width: 250px;
             height: 250px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
             transform: translate(-50%, -50%);
             pointer-events: none;
             opacity: 0;
@@ -288,7 +330,6 @@
             font-size: 0.95rem;
         }
 
-        /* --- TAGS & BOUTONS --- */
         .tag {
             display: inline-block;
             background: rgba(16, 185, 129, 0.12);
@@ -319,7 +360,7 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 22px rgba(16, 185, 129, 0.4);
         }
 
@@ -333,7 +374,30 @@
             color: var(--warm-yellow);
         }
 
-        /* --- BOUTON DE RETOUR EN HAUT --- */
+        /* BOUTON CONFETTI PARTY 🎉 */
+        #party-btn {
+            position: fixed;
+            bottom: 85px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+            transition: transform 0.2s ease;
+        }
+
+        #party-btn:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
         #back-to-top {
             position: fixed;
             bottom: 30px;
@@ -377,8 +441,8 @@
         }
 
         @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.7rem;
+            .title-gradient {
+                font-size: 1.8rem;
             }
 
             nav {
@@ -412,17 +476,18 @@
 
 <body>
 
-    <!-- CANVAS POUR PARTICULES ANIMÉES EN FOND -->
     <canvas id="particles-canvas"></canvas>
-
-    <!-- HALO LUMINEUX DE SOURIS -->
     <div id="cursor-glow"></div>
 
-    <!-- BOUTON RETOUR EN HAUT -->
+    <!-- BOUTONS FLOTTANTS -->
+    <button id="party-btn" title="Lancer la fête !">🎉</button>
     <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
 
     <header>
-        <h1>Alice Smit</h1>
+        <div class="status-badge">
+            <span class="status-dot"></span> SYSTEM_STATUS: ONLINE
+        </div>
+        <h1 class="title-gradient">Alice Smit</h1>
         <p>Étudiante en BTS SIO SISR | Alternante au Groupe Sigma</p>
     </header>
 
@@ -434,7 +499,6 @@
         <a href="#veille"><i class="fas fa-rss"></i> Veille</a>
         <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
 
-        <!-- COMMUTATEUR THÈME SOMBRE / CLAIR -->
         <button id="theme-toggle">
             <i class="fas fa-moon" id="theme-icon"></i>
             <span id="theme-text">Sombre</span>
@@ -575,7 +639,6 @@
         <p>&copy; 2026 - Portfolio BTS SIO SISR - Alice Smit</p>
     </footer>
 
-    <!-- SCRIPTS INTERACTIFS (BASCULEMENT THÈME + PARTICULES + TILT) -->
     <script>
         // 1. Basculement Thème Sombre / Clair
         const themeToggleBtn = document.getElementById('theme-toggle');
@@ -595,7 +658,7 @@
             }
         });
 
-        // 2. Halo lumineux de la souris
+        // 2. Cursor Trail & Halo
         const glow = document.getElementById('cursor-glow');
         window.addEventListener('mousemove', (e) => {
             glow.style.left = e.clientX + 'px';
@@ -623,7 +686,16 @@
             });
         });
 
-        // 4. Bouton Retour en haut
+        // 4. Bouton Confetti Party 🎉
+        document.getElementById('party-btn').addEventListener('click', () => {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: {y: 0.8}
+            });
+        });
+
+        // 5. Bouton Retour en haut
         const backToTop = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -636,7 +708,7 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
 
-        // 5. Moteur de Particules en fond
+        // 6. Moteur de Particules interactives
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
