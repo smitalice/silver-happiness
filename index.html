@@ -308,6 +308,34 @@
             gap: 0.6rem;
         }
 
+        /* --- FILTRES INTERACTIFS DE TIMELINE --- */
+        .timeline-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+        }
+
+        /* --- TIMELINE INTERACTIVE & ACCORDÉON --- */
         .timeline {
             position: relative;
             padding-left: 1.8rem;
@@ -317,18 +345,46 @@
 
         .timeline-item {
             position: relative;
-            margin-bottom: 1.8rem;
-            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+            background: var(--card-hover-bg);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .timeline-item:hover {
-            transform: translateX(8px);
+            border-color: var(--accent-green);
+            transform: translateX(6px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-title-group h3 {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .timeline-icon-toggle {
+            color: var(--primary-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item.active .timeline-icon-toggle {
+            transform: rotate(180deg);
+            color: var(--accent-green);
         }
 
         .timeline-dot {
             position: absolute;
             left: -2.35rem;
-            top: 0.2rem;
+            top: 1.2rem;
             width: 14px;
             height: 14px;
             background: var(--accent-green);
@@ -347,6 +403,22 @@
             font-weight: 700;
             color: var(--warm-yellow);
             margin-bottom: 0.2rem;
+        }
+
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .timeline-item.active .timeline-details {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed var(--border-color);
         }
 
         .skills-grid,
@@ -590,38 +662,93 @@
             </div>
         </section>
 
-        <!-- PARCOURS -->
+        <!-- PARCOURS INTERACTIF -->
         <section id="education">
             <h2><i class="fas fa-history"></i> Formations & Expériences</h2>
+
+            <!-- FILTRES DE LA TIMELINE -->
+            <div class="timeline-filters">
+                <button class="filter-btn active" data-filter="all">Tout voir</button>
+                <button class="filter-btn" data-filter="pro">Alternance & Pro</button>
+                <button class="filter-btn" data-filter="edu">Diplômes</button>
+            </div>
+
             <div class="timeline">
-                <div class="timeline-item">
+
+                <!-- CARTE 1 (Cliquable) -->
+                <div class="timeline-item" data-category="pro">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2026 - Présent</div>
-                    <h3>Alternante Informatique - Groupe Sigma</h3>
-                    <p>Mise en pratique des compétences en systèmes, réseaux et accompagnement des infrastructures de
-                        l'entreprise.</p>
-                    <span class="tag">Alternance</span>
-                    <span class="tag">Groupe Sigma</span>
-                    <span class="tag">SISR</span>
+                    <div class="timeline-header">
+                        <div class="timeline-title-group">
+                            <div class="timeline-date">2026 - Présent</div>
+                            <h3>Alternante Informatique - Groupe Sigma</h3>
+                        </div>
+                        <i class="fas fa-chevron-down timeline-icon-toggle"></i>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Cliquez pour voir les
+                        missions détaillées</p>
+
+                    <div class="timeline-details">
+                        <p>Mise en pratique approfondie des compétences en systèmes et réseaux au sein d'une
+                            infrastructure d'entreprise :</p>
+                        <ul
+                            style="margin-left: 1.2rem; margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                            <li>Assistance et résolution d'incidents (Ticketing / Helpdesk N1-N2).</li>
+                            <li>Gestion du parc informatique, déploiement de postes et configuration réseau.</li>
+                            <li>Participation aux projets d'infrastructures et de sécurité interne.</li>
+                        </ul>
+                        <span class="tag">Alternance</span>
+                        <span class="tag">Groupe Sigma</span>
+                        <span class="tag">SISR</span>
+                    </div>
                 </div>
 
-                <div class="timeline-item">
+                <!-- CARTE 2 (Cliquable) -->
+                <div class="timeline-item" data-category="edu">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2025 - Présent</div>
-                    <h3>BTS SIO option SISR</h3>
-                    <p>Solutions d'Infrastructure, Systèmes et Réseaux</p>
-                    <span class="tag">En cours</span>
-                    <span class="tag">Administration Système</span>
-                    <span class="tag">Réseau</span>
+                    <div class="timeline-header">
+                        <div class="timeline-title-group">
+                            <div class="timeline-date">2025 - Présent</div>
+                            <h3>BTS SIO option SISR</h3>
+                        </div>
+                        <i class="fas fa-chevron-down timeline-icon-toggle"></i>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Cliquez pour voir le
+                        programme</p>
+
+                    <div class="timeline-details">
+                        <p>Formation théorique et pratique axée sur la gestion et la sécurisation des SI :</p>
+                        <ul
+                            style="margin-left: 1.2rem; margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                            <li>Administration sous Windows Server & Linux Debian.</li>
+                            <li>Conception et déploiement d'architectures réseaux (Cisco).</li>
+                            <li>Gestion de la virtualisation et supervision.</li>
+                        </ul>
+                        <span class="tag">En cours</span>
+                        <span class="tag">Administration Système</span>
+                        <span class="tag">Réseau</span>
+                    </div>
                 </div>
 
-                <div class="timeline-item">
+                <!-- CARTE 3 (Cliquable) -->
+                <div class="timeline-item" data-category="edu">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2021 - 2024</div>
-                    <h3>Baccalauréat Général</h3>
-                    <p>Spécialité Mathématiques et Anglais Monde Contemporain</p>
-                    <span class="tag">Obtenu</span>
+                    <div class="timeline-header">
+                        <div class="timeline-title-group">
+                            <div class="timeline-date">2021 - 2024</div>
+                            <h3>Baccalauréat Général</h3>
+                        </div>
+                        <i class="fas fa-chevron-down timeline-icon-toggle"></i>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Cliquez pour voir les
+                        spécialités</p>
+
+                    <div class="timeline-details">
+                        <p>Spécialité Mathématiques et Anglais Monde Contemporain.</p>
+                        <span class="tag">Obtenu</span>
+                    </div>
                 </div>
+
             </div>
         </section>
 
@@ -711,7 +838,35 @@
     </footer>
 
     <script>
-        // 1. Basculement Thème Sombre / Clair
+        // 1. Interactive Timeline Accordion
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // 2. Timeline Filters
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+                timelineItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 3. Basculement Thème Sombre / Clair
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         const themeText = document.getElementById('theme-text');
@@ -729,14 +884,14 @@
             }
         });
 
-        // 2. Cursor Trail & Halo
+        // 4. Cursor Trail & Halo
         const glow = document.getElementById('cursor-glow');
         window.addEventListener('mousemove', (e) => {
             glow.style.left = e.clientX + 'px';
             glow.style.top = e.clientY + 'px';
         });
 
-        // 3. Effet Spotlight et Tilt 3D sur les cartes
+        // 5. Effet Spotlight et Tilt 3D sur les cartes
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
@@ -757,7 +912,7 @@
             });
         });
 
-        // 4. Bouton Confetti Party 🎉
+        // 6. Bouton Confetti Party 🎉
         document.getElementById('party-btn').addEventListener('click', () => {
             confetti({
                 particleCount: 100,
@@ -766,7 +921,7 @@
             });
         });
 
-        // 5. Bouton Retour en haut
+        // 7. Bouton Retour en haut
         const backToTop = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -779,7 +934,7 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
 
-        // 6. MOTEUR DE CONSTELLATIONS INTERACTIVES EN CANVAS
+        // 8. MOTEUR DE CONSTELLATIONS INTERACTIVES EN CANVAS
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -818,7 +973,6 @@
             }
         }
 
-        // Génération de 70 étoiles/noeuds
         for (let i = 0; i < 70; i++) particles.push(new Particle());
 
         function connectConstellations() {
@@ -840,7 +994,6 @@
                     }
                 }
 
-                // Connexion interactive avec le curseur de la souris
                 if (mousePos.x && mousePos.y) {
                     let dx = particles[a].x - mousePos.x;
                     let dy = particles[a].y - mousePos.y;
