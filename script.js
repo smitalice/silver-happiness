@@ -85,24 +85,15 @@ function animateConstellations() {
 }
 animateConstellations();
 
-// 5. APPARITION FLUIDE DES SECTIONS (FADE-IN)
-const observerOptions = {
-    root: null,
-    threshold: 0.15
-};
-
+// APPARITION FLUIDE DES SECTIONS (FADE-IN)
 const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('visible');
         }
     });
-}, observerOptions);
+}, { threshold: 0.1 });
 
 document.querySelectorAll('section').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(40px)';
-    section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
     observer.observe(section);
 });
