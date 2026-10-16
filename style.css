@@ -44,32 +44,6 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* --- HUD INDICATEUR DE LECTURE --- */
-#hud-reader {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--accent-green);
-    border-radius: 8px;
-    padding: 0.4rem 0.8rem;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.75rem;
-    color: var(--accent-green);
-    z-index: 1001;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-}
-
-#hud-section-tag {
-    color: var(--warm-yellow);
-    font-weight: bold;
-}
-
 /* --- CANVAS FOND --- */
 #bg-glitter-canvas,
 #particles-canvas,
@@ -461,9 +435,5 @@ footer {
     #theme-toggle {
         margin-left: 0;
         margin-top: 0.5rem;
-    }
-
-    #hud-reader {
-        display: none;
     }
 }

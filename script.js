@@ -1,26 +1,4 @@
-// 1. HUD & SCROLL
-const sections = document.querySelectorAll('section, header');
-window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const percentage = Math.min(100, Math.max(0, Math.round((winScroll / height) * 100)));
-    const hexVal = '0x' + Math.round((percentage / 100) * 255).toString(16).padStart(2, '0').toUpperCase();
-    
-    document.getElementById('hud-hex').innerText = hexVal;
-    document.getElementById('hud-bar').innerText = '[' + '█'.repeat(Math.round((percentage/100)*10)) + '░'.repeat(10 - Math.round((percentage/100)*10)) + ']';
-    document.getElementById('hud-percent').innerText = percentage + '%';
-
-    let currentSec = '#ABOUT';
-    sections.forEach(sec => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top <= 200 && rect.bottom >= 200) {
-            currentSec = '#' + (sec.id || 'HERO').toUpperCase();
-        }
-    });
-    document.getElementById('hud-section-tag').innerText = currentSec;
-});
-
-// 2. TERMINAL INTERACTIF
+// 1. TERMINAL INTERACTIF
 const terminalInput = document.getElementById('terminal-input');
 const terminalOutput = document.getElementById('terminal-output');
 terminalInput.addEventListener('keydown', (e) => {
@@ -41,7 +19,7 @@ terminalInput.addEventListener('keydown', (e) => {
     }
 });
 
-// 3. THÈME CLAIR / SOMBRE
+// 2. THÈME CLAIR / SOMBRE
 const themeToggleBtn = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
 const themeText = document.getElementById('theme-text');
@@ -56,7 +34,7 @@ themeToggleBtn.addEventListener('click', () => {
     }
 });
 
-// 4. BOUTON RETOUR HAUT & CONFETTI
+// 3. BOUTON RETOUR HAUT & CONFETTI
 const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 300) backToTop.classList.add('visible');
@@ -65,7 +43,7 @@ window.addEventListener('scroll', () => {
 backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 document.getElementById('party-btn').addEventListener('click', () => confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 } }));
 
-// 5. CONSTELLATIONS & PAILLETTES
+// 4. CONSTELLATIONS & PAILLETTES
 const canvas = document.getElementById('particles-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -107,12 +85,10 @@ function animateConstellations() {
 }
 animateConstellations();
 
-// ==========================================
-// 6. DYNAMISME : APPARITION FLUIDE DES SECTIONS (FADE-IN)
-// =================0=========================
+// 5. APPARITION FLUIDE DES SECTIONS (FADE-IN)
 const observerOptions = {
     root: null,
-    threshold: 0.15 // Déclenche l'animation quand 15% de la section est visible
+    threshold: 0.15
 };
 
 const observer = new IntersectionObserver((entries, observer) => {
@@ -124,37 +100,9 @@ const observer = new IntersectionObserver((entries, observer) => {
     });
 }, observerOptions);
 
-// On prépare les sections en les rendant invisibles au départ
 document.querySelectorAll('section').forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(40px)';
     section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
     observer.observe(section);
-});
-
-
-// ==========================================
-// 7. DYNAMISME : LIENS ACTIFS DANS LA NAVIGATION
-// ==========================================
-const navLinks = document.querySelectorAll('nav a[href^="#"]');
-
-window.addEventListener('scroll', () => {
-    let scrollPos = window.scrollY + 250;
-
-    sections.forEach(sec => {
-        let top = sec.offsetTop;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
-
-        if (scrollPos >= top && scrollPos < top + height) {
-            navLinks.forEach(link => {
-                link.style.color = 'var(--text-light)';
-                link.style.background = 'transparent';
-                if (link.getAttribute('href') === `#${id}`) {
-                    link.style.color = 'var(--warm-yellow)';
-                    link.style.background = 'rgba(125, 125, 125, 0.1)';
-                }
-            });
-        }
-    });
 });
