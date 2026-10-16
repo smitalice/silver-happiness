@@ -106,3 +106,55 @@ function animateConstellations() {
     requestAnimationFrame(animateConstellations);
 }
 animateConstellations();
+
+// ==========================================
+// 6. DYNAMISME : APPARITION FLUIDE DES SECTIONS (FADE-IN)
+// =================0=========================
+const observerOptions = {
+    root: null,
+    threshold: 0.15 // Déclenche l'animation quand 15% de la section est visible
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// On prépare les sections en les rendant invisibles au départ
+document.querySelectorAll('section').forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(40px)';
+    section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+    observer.observe(section);
+});
+
+
+// ==========================================
+// 7. DYNAMISME : LIENS ACTIFS DANS LA NAVIGATION
+// ==========================================
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+window.addEventListener('scroll', () => {
+    let scrollPos = window.scrollY + 250;
+
+    sections.forEach(sec => {
+        let top = sec.offsetTop;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
+
+        if (scrollPos >= top && scrollPos < top + height) {
+            navLinks.forEach(link => {
+                link.style.color = 'var(--text-light)';
+                link.style.background = 'transparent';
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.style.color = 'var(--warm-yellow)';
+                    link.style.background = 'rgba(125, 125, 125, 0.1)';
+                }
+            });
+        }
+    });
+});
