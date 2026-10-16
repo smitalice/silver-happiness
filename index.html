@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
+        /* (Garde ici tout ton bloc <style> habituel : variables, body, header, nav, etc.) */
         :root {
             --bg-dark: #070a12;
             --card-bg: rgba(22, 30, 46, 0.7);
@@ -23,397 +24,15 @@
             --card-hover-bg: rgba(15, 23, 42, 0.7);
         }
 
-        [data-theme="light"] {
-            --bg-dark: #f1f5f9;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --primary-purple: #7c3aed;
-            --accent-green: #059669;
-            --warm-yellow: #d97706;
-            --text-light: #0f172a;
-            --text-muted: #475569;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --nav-bg: rgba(255, 255, 255, 0.85);
-            --card-hover-bg: rgba(255, 255, 255, 0.95);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-            transition: background-color 0.4s ease, color 0.4s ease;
-        }
-
-        /* --- HUD INDICATEUR DE LECTURE (CYBER DUMP) --- */
-        #hud-reader {
-            position: fixed;
-            top: 15px;
-            right: 20px;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--accent-green);
-            border-radius: 8px;
-            padding: 0.4rem 0.8rem;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.75rem;
-            color: var(--accent-green);
-            z-index: 1001;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        #hud-section-tag {
-            color: var(--warm-yellow);
-            font-weight: bold;
-        }
-
-        /* --- CANVAS DES PAILLETTES EN FOND --- */
-        #bg-glitter-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        #sparkles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 999;
-        }
-
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        header {
-            background: linear-gradient(180deg, var(--nav-bg) 0%, transparent 100%);
-            color: var(--text-light);
-            padding: 3.5rem 1rem 2rem;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .glitch-wrapper {
-            display: inline-block;
-            position: relative;
-        }
-
-        .title-gradient {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(-45deg, #a855f7, #10b981, #fbbf24, #ec4899);
-            background-size: 300% 300%;
-            animation: gradientMove 6s ease infinite;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-family: monospace;
-            margin-bottom: 1rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-green);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 0.3;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0.3;
-            }
-        }
-
-        nav {
-            background-color: var(--nav-bg);
-            backdrop-filter: blur(12px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 0.8rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            padding: 0.5rem 0.9rem;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border-radius: 6px;
-        }
-
-        nav a:hover {
-            color: var(--warm-yellow);
-            background: rgba(125, 125, 125, 0.1);
-            transform: scale(1.05);
-        }
-
-        #theme-toggle {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-light);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            margin-left: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        #theme-toggle:hover {
-            border-color: var(--primary-purple);
-            color: var(--primary-purple);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        section {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        section:hover {
-            border-color: rgba(168, 85, 247, 0.4);
-            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.15);
-        }
-
-        h2 {
-            color: var(--primary-purple);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.6rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.6rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, var(--accent-green) 0%, #059669 100%);
-            color: white;
-            padding: 0.7rem 1.3rem;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 22px rgba(16, 185, 129, 0.4);
-        }
-
-        a {
-            color: var(--primary-purple);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: var(--warm-yellow);
-        }
-
-        #party-btn {
-            position: fixed;
-            bottom: 85px;
-            right: 30px;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #ec4899, #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
-            transition: transform 0.2s ease;
-        }
-
-        #party-btn:hover {
-            transform: scale(1.2) rotate(15deg);
-        }
-
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 45px;
-            height: 45px;
-            background: var(--primary-purple);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 99;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-        }
-
-        #back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #back-to-top:hover {
-            transform: translateY(-4px);
-            background: var(--accent-green);
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--bg-dark);
-            color: var(--text-muted);
-            margin-top: 3rem;
-            border-top: 1px solid var(--border-color);
-            position: relative;
-            z-index: 1;
-        }
-
-        @media (max-width: 600px) {
-            .title-gradient {
-                font-size: 1.8rem;
-            }
-
-            nav {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav a {
-                width: 100%;
-                text-align: center;
-                padding: 0.6rem;
-            }
-
-            #theme-toggle {
-                margin-left: 0;
-                margin-top: 0.5rem;
-            }
-
-            #hud-reader {
-                display: none;
-            }
-        }
+        /* ... le reste de ton CSS ... */
     </style>
 </head>
 
 <body>
 
-    <!-- HUD DE LECTURE -->
-    <div id="hud-reader">
-        <i class="fas fa-microchip"></i> <span id="hud-hex">0x00</span> <span id="hud-bar">[░░░░░░░░░░]</span> <span
-            id="hud-percent">0%</span> <span id="hud-section-tag">#HERO</span>
-    </div>
-
-    <!-- CANVAS POUR PAILLETTES ET PARTICULES -->
+    <!-- Canvas et boutons fixes -->
     <canvas id="bg-glitter-canvas"></canvas>
     <canvas id="particles-canvas"></canvas>
-    <canvas id="sparkles-canvas"></canvas>
-
     <button id="party-btn" title="Lancer la fête !">🎉</button>
     <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
 
@@ -427,15 +46,20 @@
         <p>Étudiante en BTS SIO SISR | Alternante au Groupe Sigma</p>
     </header>
 
-    <!-- NAVIGATION MULTI-PAGES -->
+    <!-- NAVIGATION DYNAMIQUE -->
     <nav>
-        <a href="apropos.html"><i class="fas fa-user"></i> À propos</a>
-        <a href="parcours.html"><i class="fas fa-graduation-cap"></i> Parcours</a>
-        <a href="competences.html"><i class="fas fa-code"></i> Compétences</a>
-        <a href="projets.html"><i class="fas fa-folder-open"></i> Projets</a>
-        <a href="terminal.html"><i class="fas fa-terminal"></i> Console</a>
-        <a href="veille.html"><i class="fas fa-rss"></i> Veille</a>
-        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="#" onclick="loadPage('accueil.html', event); return false;"><i class="fas fa-home"></i> Accueil</a>
+        <a href="#" onclick="loadPage('apropos.html', event); return false;"><i class="fas fa-user"></i> À propos</a>
+        <a href="#" onclick="loadPage('parcours.html', event); return false;"><i class="fas fa-graduation-cap"></i>
+            Parcours</a>
+        <a href="#" onclick="loadPage('competences.html', event); return false;"><i class="fas fa-code"></i>
+            Compétences</a>
+        <a href="#" onclick="loadPage('projets.html', event); return false;"><i class="fas fa-folder-open"></i>
+            Projets</a>
+        <a href="#" onclick="loadPage('terminal.html', event); return false;"><i class="fas fa-terminal"></i>
+            Console</a>
+        <a href="#" onclick="loadPage('veille.html', event); return false;"><i class="fas fa-rss"></i> Veille</a>
+        <a href="#" onclick="loadPage('contact.html', event); return false;"><i class="fas fa-envelope"></i> Contact</a>
 
         <button id="theme-toggle">
             <i class="fas fa-moon" id="theme-icon"></i>
@@ -443,9 +67,10 @@
         </button>
     </nav>
 
-    <div class="container">
-        <!-- SECTION ACCUEIL / APERÇU RAPIDE SUR L'INDEX -->
-        <section id="about">
+    <!-- C'est ici que le contenu des pages va s'injecter dynamiquement -->
+    <div class="container" id="dynamic-content">
+        <!-- Par défaut, le contenu de l'accueil s'affiche ici -->
+        <section>
             <h2><i class="fas fa-user-circle"></i> Bienvenue sur mon Portfolio</h2>
             <p>Bonjour ! Actuellement étudiante en BTS SIO option SISR et <strong>alternante au sein du Groupe
                     Sigma</strong>, je me passionne pour l'administration système, la gestion des réseaux d'entreprise
@@ -462,280 +87,33 @@
     </footer>
 
     <script>
-        // 1. INDICATEUR DE LECTURE INNOVANT
-        const sections = document.querySelectorAll('section, header');
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const percentage = Math.min(100, Math.max(0, Math.round((winScroll / height) * 100)));
+        // --- FONCTION DE CHARGEMENT DYNAMIQUE (AJAX / FETCH) ---
+        async function loadPage(pageUrl, event) {
+            try {
+                let response = await fetch(pageUrl);
+                if (!response.ok) throw new Error("Erreur de chargement de la page");
+                let htmlText = await response.text();
 
-            const hexVal = '0x' + Math.round((percentage / 100) * 255).toString(16).padStart(2, '0').toUpperCase();
-            const totalBlocks = 10;
-            const filledBlocks = Math.round((percentage / 100) * totalBlocks);
-            const emptyBlocks = totalBlocks - filledBlocks;
-            const barString = '[' + '█'.repeat(filledBlocks) + '░'.repeat(emptyBlocks) + ']';
+                // On extrait uniquement la balise .container ou le contenu principal du fichier cible
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(htmlText, 'text/html');
+                let newContent = doc.querySelector('.container') || doc.body;
 
-            document.getElementById('hud-hex').innerText = hexVal;
-            document.getElementById('hud-bar').innerText = barString;
-            document.getElementById('hud-percent').innerText = percentage + '%';
+                // On l'injecte dans la page sans recharger
+                document.getElementById('dynamic-content').innerHTML = newContent.innerHTML;
 
-            let currentSec = '#HERO';
-            sections.forEach(sec => {
-                const rect = sec.getBoundingClientRect();
-                if (rect.top <= 200 && rect.bottom >= 200) {
-                    currentSec = '#' + (sec.id || 'HERO').toUpperCase();
-                }
-            });
-            document.getElementById('hud-section-tag').innerText = currentSec;
-        });
+                // Remonter en haut de page en douceur
+                window.scrollTo({top: 0, behavior: 'smooth'});
 
-        // 2. MOTEUR DE PAILLETTES SCINTILLANTES EN ARRIÈRE-PLAN
-        const bgGlitterCanvas = document.getElementById('bg-glitter-canvas');
-        const bgGlitterCtx = bgGlitterCanvas.getContext('2d');
-        let glitterParticles = [];
-
-        function resizeGlitterCanvas() {
-            bgGlitterCanvas.width = window.innerWidth;
-            bgGlitterCanvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeGlitterCanvas);
-        resizeGlitterCanvas();
-
-        class GlitterParticle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * bgGlitterCanvas.width;
-                this.y = Math.random() * bgGlitterCanvas.height;
-                this.size = Math.random() * 2 + 0.8;
-                this.colors = ['#a855f7', '#10b981', '#fbbf24', '#ec4899', '#ffffff'];
-                this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
-                this.alpha = Math.random();
-                this.speedAlpha = (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1);
-                this.speedY = - (Math.random() * 0.3 + 0.1);
-            }
-            update() {
-                this.alpha += this.speedAlpha;
-                if (this.alpha >= 1 || this.alpha <= 0) {
-                    this.speedAlpha *= -1;
-                }
-                this.y += this.speedY;
-                if (this.y < 0) {
-                    this.y = bgGlitterCanvas.height;
-                    this.x = Math.random() * bgGlitterCanvas.width;
-                }
-            }
-            draw() {
-                bgGlitterCtx.save();
-                bgGlitterCtx.globalAlpha = Math.max(0, this.alpha);
-                bgGlitterCtx.fillStyle = this.color;
-                bgGlitterCtx.beginPath();
-                bgGlitterCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                bgGlitterCtx.fill();
-                bgGlitterCtx.restore();
+            } catch (error) {
+                console.error(error);
+                document.getElementById('dynamic-content').innerHTML = `<section><h2>Erreur</h2><p>Impossible de charger la page demandée.</p></section>`;
             }
         }
 
-        for (let i = 0; i < 80; i++) {
-            glitterParticles.push(new GlitterParticle());
-        }
-
-        function animateGlitter() {
-            bgGlitterCtx.clearRect(0, 0, bgGlitterCanvas.width, bgGlitterCanvas.height);
-            glitterParticles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateGlitter);
-        }
-        animateGlitter();
-
-        // 3. TRAÎNÉE DE PAILLETTES AU SURVOL DE LA SOURIS
-        const sparklesCanvas = document.getElementById('sparkles-canvas');
-        const sparklesCtx = sparklesCanvas.getContext('2d');
-        let sparkles = [];
-
-        function resizeSparklesCanvas() {
-            sparklesCanvas.width = window.innerWidth;
-            sparklesCanvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeSparklesCanvas);
-        resizeSparklesCanvas();
-
-        class Sparkle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-                this.color = ['#a855f7', '#10b981', '#fbbf24', '#ec4899'][Math.floor(Math.random() * 4)];
-                this.alpha = 1;
-                this.decay = Math.random() * 0.03 + 0.015;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.alpha -= this.decay;
-            }
-            draw() {
-                sparklesCtx.save();
-                sparklesCtx.globalAlpha = Math.max(0, this.alpha);
-                sparklesCtx.fillStyle = this.color;
-                sparklesCtx.beginPath();
-                sparklesCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                sparklesCtx.fill();
-                sparklesCtx.restore();
-            }
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            if (Math.random() < 0.4) {
-                sparkles.push(new Sparkle(e.clientX, e.clientY));
-            }
-        });
-
-        function animateSparkles() {
-            sparklesCtx.clearRect(0, 0, sparklesCanvas.width, sparklesCanvas.height);
-            sparkles = sparkles.filter(s => s.alpha > 0);
-            sparkles.forEach(s => {
-                s.update();
-                s.draw();
-            });
-            requestAnimationFrame(animateSparkles);
-        }
-        animateSparkles();
-
-        // 4. BASCULEMENT THÈME
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const themeText = document.getElementById('theme-text');
-
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                themeIcon.className = 'fas fa-moon';
-                themeText.textContent = 'Sombre';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Clair';
-            }
-        });
-
-        // 5. CONFETTI PARTY 🎉
-        document.getElementById('party-btn').addEventListener('click', () => {
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: {y: 0.8}
-            });
-        });
-
-        // 6. BOUTON RETOUR EN HAUT
-        const backToTop = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        });
-
-        // 7. MOTEUR CONSTELLATIONS
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mousePos = {x: null, y: null};
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        window.addEventListener('mousemove', (e) => {
-            mousePos.x = e.clientX;
-            mousePos.y = e.clientY;
-        });
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.6 - 0.3;
-                this.speedY = Math.random() * 0.6 - 0.3;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(168, 85, 247, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 70; i++) particles.push(new Particle());
-
-        function connectConstellations() {
-            const maxDistance = 120;
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let dx = particles[a].x - particles[b].x;
-                    let dy = particles[a].y - particles[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < maxDistance) {
-                        let opacity = 1 - (distance / maxDistance);
-                        ctx.strokeStyle = `rgba(168, 85, 247, ${opacity * 0.25})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-
-                if (mousePos.x && mousePos.y) {
-                    let dx = particles[a].x - mousePos.x;
-                    let dy = particles[a://a].y - mousePos.y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 150) {
-                        let opacity = 1 - (distance / 150);
-                        ctx.strokeStyle = `rgba(16, 185, 129, ${opacity * 0.4})`;
-                        ctx.lineWidth = 1.2;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(mousePos.x, mousePos.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animateConstellations() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            connectConstellations();
-            requestAnimationFrame(animateConstellations);
-        }
-        animateConstellations();
+        // Tes scripts globaux (Thème, Constellations, Paillettes, etc.) restent ici et tournent en fond sans interruption !
+        // ... (mets ton code JS des constellations et du thème ici)
     </script>
-
 </body>
 
 </html>
