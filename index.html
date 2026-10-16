@@ -113,17 +113,6 @@
             z-index: 999;
         }
 
-        #cursor-glow {
-            position: fixed;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(16, 185, 129, 0.08) 40%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-        }
-
         @keyframes gradientMove {
             0% {
                 background-position: 0% 50%;
@@ -163,73 +152,6 @@
             -webkit-text-fill-color: transparent;
             position: relative;
             cursor: pointer;
-        }
-
-        .title-gradient::before,
-        .title-gradient::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-dark);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .title-gradient:hover::before {
-            opacity: 0.8;
-            left: 2px;
-            text-shadow: -2px 0 #ec4899;
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim 0.3s infinite linear alternate-reverse;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .title-gradient:hover::after {
-            opacity: 0.8;
-            left: -2px;
-            text-shadow: -2px 0 #10b981;
-            clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @keyframes glitch-anim {
-            0% {
-                clip: rect(10px, 9999px, 40px, 0);
-                transform: skew(0.3deg);
-            }
-
-            50% {
-                clip: rect(50px, 9999px, 80px, 0);
-                transform: skew(0.8deg);
-            }
-
-            100% {
-                clip: rect(20px, 9999px, 60px, 0);
-                transform: skew(0.1deg);
-            }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% {
-                clip: rect(70px, 9999px, 90px, 0);
-                transform: skew(0.5deg);
-            }
-
-            50% {
-                clip: rect(10px, 9999px, 30px, 0);
-                transform: skew(0.2deg);
-            }
-
-            100% {
-                clip: rect(40px, 9999px, 70px, 0);
-                transform: skew(0.9deg);
-            }
         }
 
         .status-badge {
@@ -355,189 +277,6 @@
             gap: 0.6rem;
         }
 
-        .timeline-filters {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-light);
-            padding: 0.4rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: var(--primary-purple);
-            border-color: var(--primary-purple);
-            color: white;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 1.8rem;
-            border-left: 2px solid var(--border-color);
-            margin-top: 1rem;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 1.5rem;
-            background: var(--card-hover-bg);
-            border: 1px solid var(--border-color);
-            padding: 1rem 1.2rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item:hover {
-            border-color: var(--accent-green);
-            transform: translateX(6px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .timeline-title-group h3 {
-            font-size: 1.1rem;
-            color: var(--text-light);
-        }
-
-        .timeline-icon-toggle {
-            color: var(--primary-purple);
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-item.active .timeline-icon-toggle {
-            transform: rotate(180deg);
-            color: var(--accent-green);
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -2.35rem;
-            top: 1.2rem;
-            width: 14px;
-            height: 14px;
-            background: var(--accent-green);
-            border: 3px solid var(--bg-dark);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent-green);
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-item:hover .timeline-dot {
-            transform: scale(1.6);
-        }
-
-        .timeline-date {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--warm-yellow);
-            margin-bottom: 0.2rem;
-        }
-
-        .timeline-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease;
-            opacity: 0;
-            margin-top: 0;
-        }
-
-        .timeline-item.active .timeline-details {
-            max-height: 300px;
-            opacity: 1;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px dashed var(--border-color);
-        }
-
-        .skills-grid,
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            position: relative;
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 12px;
-            background: var(--card-hover-bg);
-            overflow: hidden;
-            transition: transform 0.2s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
-            transform-style: preserve-3d;
-        }
-
-        .card:hover {
-            border-color: var(--accent-green);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: var(--mouse-y, 50%);
-            left: var(--mouse-x, 50%);
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card h3 {
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-            font-size: 1.15rem;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .tag {
-            display: inline-block;
-            background: rgba(16, 185, 129, 0.12);
-            color: var(--accent-green);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            margin-right: 0.3rem;
-            margin-top: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .tag:hover {
-            background: var(--accent-green);
-            color: white;
-        }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -567,79 +306,6 @@
 
         a:hover {
             color: var(--warm-yellow);
-        }
-
-        .terminal-container {
-            background: #020617;
-            border: 1px solid var(--accent-green);
-            border-radius: 10px;
-            overflow: hidden;
-            font-family: 'Courier New', Courier, monospace;
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
-            margin-top: 1rem;
-        }
-
-        .terminal-header {
-            background: #0f172a;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .terminal-btn {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .terminal-btn.red {
-            background: #ef4444;
-        }
-
-        .terminal-btn.yellow {
-            background: #f59e0b;
-        }
-
-        .terminal-btn.green {
-            background: #10b981;
-        }
-
-        .terminal-title {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-left: auto;
-        }
-
-        .terminal-body {
-            padding: 1rem;
-            color: #38bdf8;
-            font-size: 0.9rem;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .terminal-input-line {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            margin-top: 0.5rem;
-        }
-
-        .terminal-prompt {
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        .terminal-input {
-            background: transparent;
-            border: none;
-            color: var(--text-light);
-            font-family: inherit;
-            font-size: 0.9rem;
-            width: 100%;
-            outline: none;
         }
 
         #party-btn {
@@ -728,16 +394,6 @@
                 margin-top: 0.5rem;
             }
 
-            .btn {
-                display: flex;
-                width: 100%;
-                justify-content: center;
-            }
-
-            #cursor-glow {
-                display: none;
-            }
-
             #hud-reader {
                 display: none;
             }
@@ -747,17 +403,16 @@
 
 <body>
 
-    <!-- HUD DE LECTURE (MEMOIRE MEMORY DUMP CYBERPUNK) -->
+    <!-- HUD DE LECTURE -->
     <div id="hud-reader">
         <i class="fas fa-microchip"></i> <span id="hud-hex">0x00</span> <span id="hud-bar">[░░░░░░░░░░]</span> <span
             id="hud-percent">0%</span> <span id="hud-section-tag">#HERO</span>
     </div>
 
-    <!-- CANVAS POUR PAILLETTES EN FOND, PARTICULES ET TRAÎNÉE DE SOURIS -->
+    <!-- CANVAS POUR PAILLETTES ET PARTICULES -->
     <canvas id="bg-glitter-canvas"></canvas>
     <canvas id="particles-canvas"></canvas>
     <canvas id="sparkles-canvas"></canvas>
-    <div id="cursor-glow"></div>
 
     <button id="party-btn" title="Lancer la fête !">🎉</button>
     <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
@@ -772,14 +427,15 @@
         <p>Étudiante en BTS SIO SISR | Alternante au Groupe Sigma</p>
     </header>
 
+    <!-- NAVIGATION MULTI-PAGES -->
     <nav>
-        <a href="#about"><i class="fas fa-user"></i> À propos</a>
-        <a href="#education"><i class="fas fa-graduation-cap"></i> Parcours</a>
-        <a href="#skills"><i class="fas fa-code"></i> Compétences</a>
-        <a href="#projects"><i class="fas fa-folder-open"></i> Projets</a>
-        <a href="#terminal"><i class="fas fa-terminal"></i> Console</a>
-        <a href="#veille"><i class="fas fa-rss"></i> Veille</a>
-        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="apropos.html"><i class="fas fa-user"></i> À propos</a>
+        <a href="parcours.html"><i class="fas fa-graduation-cap"></i> Parcours</a>
+        <a href="competences.html"><i class="fas fa-code"></i> Compétences</a>
+        <a href="projets.html"><i class="fas fa-folder-open"></i> Projets</a>
+        <a href="terminal.html"><i class="fas fa-terminal"></i> Console</a>
+        <a href="veille.html"><i class="fas fa-rss"></i> Veille</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
 
         <button id="theme-toggle">
             <i class="fas fa-moon" id="theme-icon"></i>
@@ -788,10 +444,9 @@
     </nav>
 
     <div class="container">
-
-        <!-- À PROPOS -->
+        <!-- SECTION ACCUEIL / APERÇU RAPIDE SUR L'INDEX -->
         <section id="about">
-            <h2><i class="fas fa-user-circle"></i> Présentation</h2>
+            <h2><i class="fas fa-user-circle"></i> Bienvenue sur mon Portfolio</h2>
             <p>Bonjour ! Actuellement étudiante en BTS SIO option SISR et <strong>alternante au sein du Groupe
                     Sigma</strong>, je me passionne pour l'administration système, la gestion des réseaux d'entreprise
                 et la cybersécurité.</p>
@@ -800,197 +455,6 @@
                     Télécharger mon CV (PDF)</a>
             </div>
         </section>
-
-        <!-- PARCOURS INTERACTIF -->
-        <section id="education">
-            <h2><i class="fas fa-history"></i> Formations & Expériences</h2>
-
-            <div class="timeline-filters">
-                <button class="filter-btn active" data-filter="all">Tout voir</button>
-                <button class="filter-btn" data-filter="pro">Alternance & Pro</button>
-                <button class="filter-btn" data-filter="edu">Diplômes</button>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item" data-category="pro">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-header">
-                        <div class="timeline-title-group">
-                            <div class="timeline-date">2026 - Présent</div>
-                            <h3>Alternante Informatique - Groupe Sigma</h3>
-                        </div>
-                        <i class="fas fa-chevron-down timeline-icon-toggle"></i>
-                    </div>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Cliquez pour voir les
-                        missions détaillées</p>
-
-                    <div class="timeline-details">
-                        <p>Mise en pratique approfondie des compétences en systèmes et réseaux au sein d'une
-                            infrastructure d'entreprise :</p>
-                        <ul
-                            style="margin-left: 1.2rem; margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
-                            <li>Assistance et résolution d'incidents (Ticketing / Helpdesk N1-N2).</li>
-                            <li>Gestion du parc informatique, déploiement de postes et configuration réseau.</li>
-                            <li>Participation aux projets d'infrastructures et de sécurité interne.</li>
-                        </ul>
-                        <span class="tag">Alternance</span>
-                        <span class="tag">Groupe Sigma</span>
-                        <span class="tag">SISR</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-category="edu">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-header">
-                        <div class="timeline-title-group">
-                            <div class="timeline-date">2025 - Présent</div>
-                            <h3>BTS SIO option SISR</h3>
-                        </div>
-                        <i class="fas fa-chevron-down timeline-icon-toggle"></i>
-                    </div>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Cliquez pour voir le
-                        programme</p>
-
-                    <div class="timeline-details">
-                        <p>Formation théorique et pratique axée sur la gestion et la sécurisation des SI :</p>
-                        <ul
-                            style="margin-left: 1.2rem; margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
-                            <li>Administration sous Windows Server & Linux Debian.</li>
-                            <li>Conception et déploiement d'architectures réseaux (Cisco).</li>
-                            <li>Gestion de la virtualisation et supervision.</li>
-                        </ul>
-                        <span class="tag">En cours</span>
-                        <span class="tag">Administration Système</span>
-                        <span class="tag">Réseau</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-category="edu">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-header">
-                        <div class="timeline-title-group">
-                            <div class="timeline-date">2021 - 2024</div>
-                            <h3>Baccalauréat Général</h3>
-                        </div>
-                        <i class="fas fa-chevron-down timeline-icon-toggle"></i>
-                    </div>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Cliquez pour voir les
-                        spécialités</p>
-
-                    <div class="timeline-details">
-                        <p>Spécialité Mathématiques et Anglais Monde Contemporain.</p>
-                        <span class="tag">Obtenu</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- COMPÉTENCES -->
-        <section id="skills">
-            <h2><i class="fas fa-laptop-code"></i> Compétences Techniques</h2>
-            <div class="skills-grid">
-                <div class="card">
-                    <h3>Systèmes & Services</h3>
-                    <p>Windows Server (AD DS, DNS, DHCP, GPO), Linux Debian/Ubuntu, Serveurs Web.</p>
-                </div>
-                <div class="card">
-                    <h3>Réseaux & Sécurité</h3>
-                    <p>Cisco Packet Tracer, VLANs, Routage, Wireshark.</p>
-                </div>
-                <div class="card">
-                    <h3>Virtualisation & Supervision</h3>
-                    <p>VMware ESXi, VirtualBox, Zabbix, Veeam Backup.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROJETS -->
-        <section id="projects">
-            <h2><i class="fas fa-project-diagram"></i> Réalisations / Projets</h2>
-            <div class="projects-grid">
-                <div class="card" data-tags="windowsserver activedirectory">
-                    <h3>Déploiement d'une infrastructure Active Directory</h3>
-                    <p>Mise en place d'un domaine Active Directory sous Windows Server avec gestion des utilisateurs,
-                        des groupes et déploiement de GPO de sécurité.</p>
-                    <span class="tag">#WindowsServer</span>
-                    <span class="tag">#ActiveDirectory</span>
-                </div>
-                <div class="card" data-tags="cablage reseau">
-                    <h3>Câblage de la salle 001</h3>
-                    <p>Organisation, devis des travaux d'une salle d'informatique.</p>
-                    <a href="Câblage_projet.pdf" download="Câblage_projet.pdf" class="btn"><i
-                            class="fas fa-file-pdf"></i> Télécharger le projet (PDF)</a>
-                    <br>
-                    <span class="tag">#AP</span>
-                    <span class="tag">#Réseau</span>
-                    <span class="tag">#Câblage</span>
-                </div>
-                <div class="card" data-tags="docker wisemapping">
-                    <h3>Installation de Wisemapping via Docker Compose</h3>
-                    <p>Tutoriel vidéo montrant la configuration de l'installation de Wisemapping.</p>
-
-                    <video controls width="100%" style="border-radius: 6px; margin-top: 1rem; background-color: #000;">
-                        <source src="Alice_Docker_Compose.mp4" type="video/mp4">
-                        Votre navigateur ne prend pas en charge la lecture vidéo.
-                    </video>
-
-                    <span class="tag">#Docker</span>
-                    <span class="tag">#Wisemapping</span>
-                    <span class="tag">#Tutoriel</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- TERMINAL INTERACTIF -->
-        <section id="terminal">
-            <h2><i class="fas fa-terminal"></i> Terminal SISR Shell v1.0</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Tapez <code>help</code> pour afficher la liste des
-                commandes disponibles.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <div class="terminal-btn red"></div>
-                    <div class="terminal-btn yellow"></div>
-                    <div class="terminal-btn green"></div>
-                    <span class="terminal-title">alice@sisr-portfolio:~</span>
-                </div>
-                <div class="terminal-body" id="terminal-output">
-                    <div>Bienvenue sur le terminal d'Alice Smit. Tapez <strong>help</strong> pour commencer.</div>
-                </div>
-                <div style="padding: 0 1rem 1rem;">
-                    <div class="terminal-input-line">
-                        <span class="terminal-prompt">alice@sisr:~$</span>
-                        <input type="text" id="terminal-input" class="terminal-input"
-                            placeholder="Saisir une commande..." autocomplete="off">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- VEILLE -->
-        <section id="veille">
-            <h2><i class="fas fa-shield-alt"></i> Veille Technologique</h2>
-            <p><strong>Thème :</strong> L'évolution de la sécurité des architectures Zero Trust face aux cyberattaques
-                modernes.</p>
-            <p style="color: var(--text-muted); margin-top: 0.5rem;">J'utilise des flux RSS (Feedly) et des alertes
-                d'actualités spécialisées (CERT-FR, ZDNet, ANSSI) pour suivre quotidiennement les vulnérabilités et
-                innovations du secteur.</p>
-        </section>
-
-        <!-- CONTACT -->
-        <section id="contact">
-            <h2><i class="fas fa-paper-plane"></i> Contact</h2>
-            <p style="margin-bottom: 0.8rem;">N'hésitez pas à me contacter via :</p>
-            <ul style="list-style: none; padding-left: 0;">
-                <li style="margin-bottom: 0.5rem;"><i class="fab fa-linkedin" style="color: var(--primary-purple);"></i>
-                    <strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/alice-smit-a2b170332/"
-                        target="_blank" rel="noopener noreferrer">Alice Smit sur LinkedIn</a>
-                </li>
-                <li><i class="fab fa-github" style="color: var(--accent-green);"></i> <strong>GitHub :</strong> <a
-                        href="https://github.com/smitalice" target="_blank" rel="noopener noreferrer">Mon GitHub</a>
-                </li>
-            </ul>
-        </section>
-
     </div>
 
     <footer>
@@ -998,17 +462,14 @@
     </footer>
 
     <script>
-        // 1. INDICATEUR DE LECTURE INNOVANT (HUD MEMORY DUMP)
+        // 1. INDICATEUR DE LECTURE INNOVANT
         const sections = document.querySelectorAll('section, header');
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const percentage = Math.min(100, Math.max(0, Math.round((winScroll / height) * 100)));
 
-            // Hexadécimal dynamique (0x00 à 0xFF)
             const hexVal = '0x' + Math.round((percentage / 100) * 255).toString(16).padStart(2, '0').toUpperCase();
-
-            // Barre visuelle ASCII
             const totalBlocks = 10;
             const filledBlocks = Math.round((percentage / 100) * totalBlocks);
             const emptyBlocks = totalBlocks - filledBlocks;
@@ -1018,7 +479,6 @@
             document.getElementById('hud-bar').innerText = barString;
             document.getElementById('hud-percent').innerText = percentage + '%';
 
-            // Détection de la section courante
             let currentSec = '#HERO';
             sections.forEach(sec => {
                 const rect = sec.getBoundingClientRect();
@@ -1070,8 +530,6 @@
                 bgGlitterCtx.save();
                 bgGlitterCtx.globalAlpha = Math.max(0, this.alpha);
                 bgGlitterCtx.fillStyle = this.color;
-
-                // Dessin d'une petite étoile scintillante à 4 branches
                 bgGlitterCtx.beginPath();
                 bgGlitterCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 bgGlitterCtx.fill();
@@ -1149,69 +607,7 @@
         }
         animateSparkles();
 
-        // 4. ACCORDÉON TIMELINE
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.addEventListener('click', () => {
-                item.classList.toggle('active');
-            });
-        });
-
-        // 5. FILTRES TIMELINE
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const timelineItems = document.querySelectorAll('.timeline-item');
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filter = btn.getAttribute('data-filter');
-                timelineItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // 6. TERMINAL INTERACTIF
-        const terminalInput = document.getElementById('terminal-input');
-        const terminalOutput = document.getElementById('terminal-output');
-
-        terminalInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const cmd = terminalInput.value.trim().toLowerCase();
-                terminalInput.value = '';
-
-                let reply = '';
-                if (cmd === 'help') {
-                    reply = 'Commandes disponibles : <strong>skills</strong>, <strong>projects</strong>, <strong>contact</strong>, <strong>clear</strong>, <strong>sudo</strong>';
-                } else if (cmd === 'skills') {
-                    reply = 'Windows Server, Linux Debian, Active Directory, Cisco, Docker, VMware ESXi, Zabbix.';
-                } else if (cmd === 'projects') {
-                    reply = '1. Infrastructure Active Directory<br>2. Câblage Salle 001<br>3. Wisemapping via Docker Compose';
-                } else if (cmd === 'contact') {
-                    reply = 'LinkedIn: Alice Smit | GitHub: smitalice';
-                } else if (cmd === 'clear') {
-                    terminalOutput.innerHTML = '';
-                    return;
-                } else if (cmd === 'sudo') {
-                    reply = '<span style="color:#ef4444;">Accès refusé : vous devez être un administrateur système diplômé ! 😉</span>';
-                } else if (cmd === '') {
-                    return;
-                } else {
-                    reply = `Commande inconnue: "${cmd}". Tapez <strong>help</strong> pour la liste.`;
-                }
-
-                terminalOutput.innerHTML += `<div style="margin-top:0.3rem;"><span style="color:var(--accent-green);">alice@sisr:~$</span> ${cmd}</div><div style="color:var(--text-muted); font-size:0.85rem; margin-bottom:0.3rem;">${reply}</div>`;
-                terminalOutput.scrollTop = terminalOutput.scrollHeight;
-            }
-        });
-
-        // 7. BASCULEMENT THÈME
+        // 4. BASCULEMENT THÈME
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         const themeText = document.getElementById('theme-text');
@@ -1229,35 +625,7 @@
             }
         });
 
-        // 8. HALO SOURIS
-        const glow = document.getElementById('cursor-glow');
-        window.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
-
-        // 9. TILT 3D CARTES
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 20;
-                const rotateY = (centerX - x) / 20;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-            });
-        });
-
-        // 10. CONFETTI PARTY 🎉
+        // 5. CONFETTI PARTY 🎉
         document.getElementById('party-btn').addEventListener('click', () => {
             confetti({
                 particleCount: 100,
@@ -1266,7 +634,7 @@
             });
         });
 
-        // 11. BOUTON RETOUR EN HAUT
+        // 6. BOUTON RETOUR EN HAUT
         const backToTop = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -1279,7 +647,7 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
 
-        // 12. MOTEUR CONSTELLATIONS
+        // 7. MOTEUR CONSTELLATIONS
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1341,8 +709,8 @@
 
                 if (mousePos.x && mousePos.y) {
                     let dx = particles[a].x - mousePos.x;
-                    let dy = particles[a].y - mousePos.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let dy = particles[a://a].y - mousePos.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < 150) {
                         let opacity = 1 - (distance / 150);
                         ctx.strokeStyle = `rgba(16, 185, 129, ${opacity * 0.4})`;
